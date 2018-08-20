@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+'use strict';\
+const Alexa = require('alexa-sdk');\
+\
+\
+const APP_ID = 'amzn1.ask.skill.69f3234c-dd9a-4d38-a061-34fc4ec054ca';\
+\
+const SKILL_NAME = 'Airtel Payment Bank';\
+\
+const HELP_MESSAGE = 'You can ask me anything to do in your Airtel Payments Bank Account, or, you can say exit... What can I help you with?';\
+const HELP_REPROMPT = 'What can I help you with?';\
+const STOP_MESSAGE = 'Goodbye!';\
+const TRANSACTION_BEGIN_MESSAGE = 'These are your last five transactions';\
+\
+//=========================================================================================================================================\
+//TODO: Replace this data with your own.  You can find translations of this data at http://github.com/alexa/skill-sample-node-js-fact/data\
+//=========================================================================================================================================\
+var data = \{\
+    Name: 'John Doe',\
+    Number: '12345678',\
+    Balance: 100\
+\};\
+\
+const transactions = [\
+    'Paid 500 rupees to Ellen',\
+    'Received 1000 rupees from Conan',\
+    'Paid 100 rupees to Stephen',\
+    'Paid 200 rupees to Jimmy',\
+    'Received 50 rupees from Craig'\
+    \
+    \
+    \
+];\
+\
+//=========================================================================================================================================\
+//Editing anything below this line might break your skill.\
+//=========================================================================================================================================\
+\
+const handlers = \{\
+  'LaunchRequest': function () \{\
+         this.emit(':tell','hello,'+ data.Name +' This is airtel Payments bank how may i help you today');\
+         this.shouldEndSession='false';\
+        this.emit(':responseReady');\
+\
+    \},\
+    'ChangeMpin': function () \{\
+      this.emit(':tell','This is to change your M PIN Do you Wish To Proceed')\
+    this.emit(':responseReady')\
+\
+    \},\
+    'lastFiveTransactions' : function () \{\
+        this.response.speak(TRANSACTION_BEGIN_MESSAGE + '. ' + transactions[0] + '. ' + transactions[1] + '. ' + transactions[2] + '. ' + transactions[3] + '. ' + transactions[4]);\
+        // this.response.speak(transactions[0]);\
+        // this.response.speak(transactions[1]);\
+        // this.response.speak(transactions[2]);\
+        // this.response.speak(transactions[3]);\
+        // this.response.speak(transactions[4]);\
+        this.emit(':responseReady');\
+    \},\
+    'Balance':function()\{\
+         this.emit(':tell','Hello sir your balance is '+ data.Balance+' Rupees');\
+        this.emit(':responseReady');\
+    \},\
+\
+    'AMAZON.HelpIntent': function () \{\
+        const speechOutput = HELP_MESSAGE;\
+        const reprompt = HELP_REPROMPT;\
+\
+        this.response.speak(speechOutput).listen(reprompt);\
+        this.emit(':responseReady');\
+    \},\
+    'AMAZON.CancelIntent': function () \{\
+        this.response.speak(STOP_MESSAGE);\
+        this.emit(':responseReady');\
+    \},\
+    'AMAZON.StopIntent': function () \{\
+        this.response.speak(STOP_MESSAGE);\
+        this.emit(':responseReady');\
+    \},\
+\};\
+\
+exports.handler = function (event, context, callback) \{\
+    const alexa = Alexa.handler(event, context, callback);\
+    alexa.APP_ID = APP_ID;\
+    alexa.registerHandlers(handlers);\
+    alexa.execute();\
+\};\
+}
