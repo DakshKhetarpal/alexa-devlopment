@@ -54,25 +54,7 @@ const transactions = [\
 \
 const handlers = \{\
   'LaunchRequest': function () \{\
-     let response =  \{\
-	"body": \{\
-		"version": "1.0",\
-		"response": \{\
-			"outputSpeech": \{\
-				"type": "SSML",\
-				"ssml": "<speak> hello,John Doe This is airtel Payments bank how may i help you today </speak>"\
-			\},\
-			"shouldEndSession": false\
-		\},\
-		"sessionAttributes": \{\},\
-		"userAgent": "ask-nodejs/1.0.25 Node/v6.10.3"\
-	\}\
-\};\
-	this.emit(':responseReady')\
-         //this.emit(':tell','hello,'+ data.Name +' This is airtel Payments bank how may i help you today');\
-         //response.shouldEndSession(false, "Reprompt your user here");\
-        //this.emit(':responseReady');\
-\
+            this.emit(':tell','hello,'+ data.Name +' This is airtel Payments bank how may i help you today');\
     \},\
     'ChangeMpin': function () \{\
       this.emit(':tell','This is to change your M PIN Do you Wish To Proceed')\
