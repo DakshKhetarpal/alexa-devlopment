@@ -39,6 +39,15 @@ const transactions = [\
     \
 ];\
 \
+ var merchants = \{\
+		    'water board' : \{\
+		        'balance' : 1000\
+		    \},\
+		    'electricity board' : \{\
+		        'balance' : 1000\
+		    \}\
+\}\
+\
 //=========================================================================================================================================\
 //Editing anything below this line might break your skill.\
 //=========================================================================================================================================\
@@ -68,6 +77,23 @@ const handlers = \{\
          this.emit(':tell','Hello sir your balance is '+ data.Balance+' Rupees');\
         this.emit(':responseReady');\
     \},\
+    'billPayment' : function()\{\
+    var amount = this.event.request.intent.slots.amount.value;\
+    console.log('amount to be payed: ' + amount);\
+ \
+     var merchant = this.event.request.intent.slots.merchant.value;\
+    console.log('amount to be payed: ' + merchant);\
+ \
+    var bal='balance';\
+ \
+    if(merchant && merchants[merchant]) \{\
+               merchants[merchants][bal]+= amount; \
+               data.Balance=data.Balance-amount;\
+               this.emit(':tell','payment successful')\
+           \} else \{\
+               this.emit(':tell','no merchant found')\
+                \}\
+   \},\
 \
     'AMAZON.HelpIntent': function () \{\
         const speechOutput = HELP_MESSAGE;\
