@@ -11,7 +11,9 @@ const HELP_MESSAGE = 'You can ask me anything to do in your Airtel Payments Bank
 const HELP_REPROMPT = 'What can I help you with?';
 const STOP_MESSAGE = 'Goodbye!';
 const TRANSACTION_BEGIN_MESSAGE = 'These are your last five transactions';
-CHANGE_MPIN_MESSAGE = 'This is to change your MPIN, Do you wish to continue';
+const CHANGE_MPIN_MESSAGE = 'This is to change your MPIN, Do you wish to continue';
+
+
 // Hard Coaded Data for Testing
 
 var data = {
@@ -67,10 +69,10 @@ const BalanceHandler = {
     
     const speechOutput = 'Your Balance is,'+data.Balance+' rupees';
 
-    return handlerInput.responseBuilder
+      return handlerInput.responseBuilder
       .speak(speechOutput)
       .withSimpleCard(SKILL_NAME)
-         .withShouldEndSession(false)
+      .withShouldEndSession(false)
       .getResponse();
   },
 };
@@ -84,11 +86,10 @@ const LastTransactionsHandler = {
   handle(handlerInput) {
     
     const speechOutput = TRANSACTION_BEGIN_MESSAGE + '. ' + transactions[0] + '. ' + transactions[1] + '. ' + transactions[2] + '. ' + transactions[3] + '. ' + transactions[4];
-
-    return handlerInput.responseBuilder
+      return handlerInput.responseBuilder
       .speak(speechOutput)
       .withSimpleCard(SKILL_NAME)
-         .withShouldEndSession(false)
+      .withShouldEndSession(false)
       .getResponse();
   },
 };
@@ -106,8 +107,7 @@ const ChangeMpinHandler = {
     return handlerInput.responseBuilder
       .speak(speechOutput)
       .withSimpleCard(SKILL_NAME)
-     // .reprompt()
-         .withShouldEndSession(false)
+      .withShouldEndSession(false)
       .getResponse();
   },
 };
