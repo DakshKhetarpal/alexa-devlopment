@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: b0206960
+Build-Jdk: 10.0.1
+Implementation-Title: alexa dev
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.alexa.dev
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/alexa.dev
+Created-By: Maven Integration for Eclipse
+
