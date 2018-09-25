@@ -41,8 +41,9 @@ public class TockenFactory {
     	 ResponseEntity<String> response = getReponce(url, httpHeaders, requestJson);
 		return  response.getBody().toString()+"&TOKEN:"+token;
 	}
-	public String matchOTP(String OTP, String res) {
-	
+	public User matchOTP(String OTP, String res) {
+		
+		
 		String[] ok = res.split("&",2);
 		String resPure = ok[0];
 		JsonSimpleJsonParser parser = new JsonSimpleJsonParser();
@@ -59,11 +60,16 @@ public class TockenFactory {
 		 String requestJson  = "{\"otp\":\""+OTP+"\",\"verificationToken\":\""+verificationToken+"\",\"channel\":\"WEB\",\"feSessionId\":\"ECOMvDgPpJ3fWn4\"}";
 		 ResponseEntity<String> response = getReponce(url, httpHeaders, requestJson);
 		 String responceJson = response.getBody().toString();
+		 System.out.println("OTP Verification : "+ requestJson);
 	        Map<String,Object> reponseMap =  parser.parseMap(responceJson);
 	        String profileInfo =  reponseMap.get("profileInfo").toString();
 	        Map<String,Object> ProfileMap =  parser.parseMap(profileInfo);
 	       String CUST_FIRST_NAME = ProfileMap.get("CUST_FIRST_NAME").toString();
-		 return CUST_FIRST_NAME;
+	       String balance = ProfileMap.get("CURRENT_BAL").toString();
+	       System.out.println(CUST_FIRST_NAME+","+balance);
+	       User user = new User(CUST_FIRST_NAME,balance);
+	       
+		 return user;
 		 
 	}
 	

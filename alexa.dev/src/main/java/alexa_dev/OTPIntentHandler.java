@@ -25,23 +25,22 @@ public class OTPIntentHandler  implements RequestHandler {
         IntentRequest intentRequest = (IntentRequest) request;
         Intent intent = intentRequest.getIntent();
         Map<String, Slot> slots = intent.getSlots();
-
-        
         Slot OTPSlot = slots.get("OTP");
         String OTP = OTPSlot.getValue();
         String res= (String) input.getAttributesManager().getSessionAttributes().get("Res");
-        String speechText = "OTP verified Welcome ";
+        String speechText = "OTP verified Hello";
    	 	try {        
-   	 		String name = tockenFactory.matchOTP(OTP,res); 
-   	 		speechText+=name;
+   	 		User curr_user = tockenFactory.matchOTP(OTP,res);
+   	 		speechText+= curr_user.getName()+", Your Current balance is "+ curr_user.getBalance();
    	 	}
    	 	catch (Exception e) {
-   	 	 speechText = "OTP not verified";		
+   	 	 speechText = "OTP not verified please try again, Please Provide your Phone number";	
    	 	 }
    	 	
         return input.getResponseBuilder()
                 .withSpeech(speechText)
                 .withSimpleCard(speechText, speechText)
+                .withShouldEndSession(false)
                 .build();
     }
 

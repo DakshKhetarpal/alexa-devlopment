@@ -10,9 +10,8 @@ public class Application {
    	 TockenFactory tockenFactory = new TockenFactory();    	
 	 String res = tockenFactory.SendOTP("9991310365");
 	 System.out.println(res);
-	 String out = tockenFactory.matchOTP("310365",res);
-	 System.out.println(out);
-	 
-		SpringApplication.run(Application.class);
+	 User out = tockenFactory.matchOTP("310365",res);
+	 SpringApplication.run(Application.class);
+	
 	}
 }
